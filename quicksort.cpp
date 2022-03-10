@@ -1,35 +1,31 @@
 #include <iostream>
-#include <vector>
-#include <iterator>
 using namespace std;
 
-int partition(vector<int> &arr, int low, int up)
+int partition(int *arr, int low, int up)
 {
     // Taking the element at the low index of the array/subarray as pivot
     int pivot = arr[low];
     int i = low + 1, j = up;
-    //
     while (i <= j)
     {
-        while (arr[i] < pivot && i < up)
+        while (arr[i] < pivot && i <= up)
             i++;
         while (arr[j] > pivot)
             j--;
+
         if (i < j)
         {
             int temp = arr[j];
             arr[j] = arr[i];
             arr[i] = temp;
         }
-        else
-            i++;
     }
     arr[low] = arr[j];
     arr[j] = pivot;
     return j;
 }
 
-void quicksort(vector<int> &arr, int low, int up)
+void quicksort(int *arr, int low, int up)
 {
     if (low >= up)
         return;
@@ -41,16 +37,16 @@ void quicksort(vector<int> &arr, int low, int up)
 int main()
 {
     int n;
-    std::cout << "Enter no. of elements: ";
-    std::cin >> n;
-    std::vector<int> arr(n);
-    std::cout << "Enter elements: " << std::endl;
-    for (auto &it : arr)
-        std::cin >> it;
+    cout << "Enter no. of elements: ";
+    cin >> n;
+    int *arr = new int[n];
+    cout << "Enter elements: " << endl;
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
     quicksort(arr, 0, n - 1);
-    std::cout << "Sorted elements are: ";
-    for (auto it : arr)
-        std::cout << it << " ";
-    std::cout << std::endl;
+    cout << "Sorted elements are: ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
     return 0;
 }
