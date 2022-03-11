@@ -1,46 +1,16 @@
-#include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int fun(int);
+void foo1(int *arr) { cout << sizeof(arr) << '\n'; }
+void foo2(int arr[]) { cout << sizeof(arr) << '\n'; }
+void foo3(int arr[10]) { cout << sizeof(arr) << '\n'; }
+void foo4(int (&arr)[10]) { cout << sizeof(arr) << '\n'; }
+
 int main()
 {
-    int n;
-    cin>>n;
-    cout<<fun(n);
-    return 0;
-}
-int fun(int n)
-{
-    int count=0,count2=0;
-    while(n/2!=1)
-    {
-        if(n%2==1)
-        {
-            count++;
-        }
-        else{
-            if(count>count2)
-            {
-                count2=count;
-                count=0;
-            }
-            count=0;
-        }
-        n=n/2;
-    }
-    if(n%2==0)
-    {
-        if(count>count2)
-        {
-            count2=count;
-            count=1;
-        }
-        count=1;
-    }
-    else
-        count=count+2;
-        
-    if(count>count2)
-    return count;
-    else
-    return count2;
+    int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    foo1(arr);
+    foo2(arr);
+    foo3(arr);
+    foo4(arr);
+    cout << "size of int pointer" << sizeof(int *) << endl;
 }
