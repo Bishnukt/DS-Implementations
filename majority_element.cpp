@@ -11,7 +11,7 @@ int solve(int *arr,int n)
 	{
 		if(arr[ans_ind]==arr[i])
 			count++;
-		elsei
+		else
 		{
 			count--;
 			if(count==0)
