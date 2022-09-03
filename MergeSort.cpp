@@ -34,7 +34,7 @@ void merge(int *arr, int low, int mid, int high)
     }
     for (i = low; i <= high; i++)
         arr[i] = b[i];
-    free(b);
+    delete(b);
 }
 
 void merge_sort(int *arr, int low, int high)

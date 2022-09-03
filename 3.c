@@ -1,4 +1,4 @@
-//Implementing 1D Dynamic array
+//Implementing 2d static array
 #include<stdio.h>
 
 int main()
