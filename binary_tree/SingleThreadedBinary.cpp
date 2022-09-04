@@ -13,24 +13,24 @@ class BinaryTree{
     public:
     Node* insert(Node *root,int data)
     {
+        Node *ptr=root;
         if(root==NULL)
         {
-            root=new Node(data);
-            return root;
+            Node *tmp = new Node(data);
+			tmp->isThreaded=true;
+			return tmp;
+
         }
-        Node *ptr=root,*par=ptr;
         if(data<ptr->info)
         {
-            // Node *tmp=insert(ptr->left,data);
-            // tmp->right=ptr;
-            // tmp->isThreaded=true;
-            // ptr->left=tmp;
-            // cout<<"smaller data block ending"<<endl;
-            ptr->left=insert(ptr->left,data);
-            ptr->left->right=par;
-            par->left=ptr->left;
-            ptr->left->isThreaded=true;
-
+			if(ptr->left==NULL)
+			{
+				Node *par=ptr;
+            	ptr->left=insert(ptr->left,data);
+				ptr->left->right=par;
+			}
+			else
+				ptr->left=insert(ptr->left,data);
         }
         else if(data==ptr->info)
         {
@@ -39,80 +39,81 @@ class BinaryTree{
         }
         else
         {
-            if(ptr->right->isThreaded==false)
-            {
-                ptr->right=insert(ptr->right,data);
-                ptr->right->right=par;
-                par->isThreaded=false;
-                par->right=ptr->right;
-                ptr->right->isThreaded=true;
-            }
-        }
-        return root;
-    }
+			if(ptr->isThreaded)
+			{
+				Node *par=ptr->right;
+				ptr->right=NULL;
+				ptr->isThreaded=false;
+				ptr->right=insert(ptr->right,data);
+				ptr->right->right=par;
+			}
+			else
+				ptr->right=insert(ptr->right,data);
+		}
+		return root;
+	}
 
-    void inorder(Node *root)
-    {
-        if(root==NULL)
-        {
-            cout<<"Tree is empty."<<endl;
-            return;
-        }
-        Node *ptr=root;
-        while(ptr->left!=NULL)
-        ptr=ptr->left;
-        while(ptr!=NULL)
-        {
-            cout<<ptr->info<<" ";
-            if(ptr->isThreaded)
-            {
-                ptr=ptr->right;
-            }
-            else
-            {
-            ptr=ptr->right;
-            if(ptr==NULL)
-            return;
-            while(ptr->left!=NULL)
-            ptr=ptr->left;
-            }
-        }
-    }
+	void inorder(Node *root)
+	{
+		if(root==NULL)
+		{
+			cout<<"Tree is empty."<<endl;
+			return;
+		}
+		Node *ptr=root;
+		while(ptr->left!=NULL)
+			ptr=ptr->left;
+		while(ptr!=NULL)
+		{
+			cout<<ptr->info<<" ";
+			if(ptr->isThreaded)
+			{
+				ptr=ptr->right;
+			}
+			else
+			{
+				ptr=ptr->right;
+				if(ptr==NULL)
+					return;
+				while(ptr->left!=NULL)
+					ptr=ptr->left;
+			}
+		}
+	}
 };
 int main()
 {
-    BinaryTree a;
-    Node *root=NULL;
-    int choice,n,data;
-    while(1)
-    {
-        cout<<"1.Insert\n2.Inorder Traversal of Threaded tree.\n3.Exit"<<endl;
-        cout<<"Enter your choice- ";
-        cin>>choice;
-        switch(choice)
-        {
-            case 1:
-            cout<<"Number of elements to insert- ";
-            cin>>n;
-            cout<<"Enter "<<n<<" integers :"<<endl;
-            for(int i=0;i<n;i++)
-            {
-                cout<<"i="<<i<<endl;
-                cin>>data;
-                root=a.insert(root,data);
-            }
-            break;
-            
-            case 2:
-            a.inorder(root);
-            cout<<endl;
-            break;
+	BinaryTree a;
+	Node *root=NULL;
+	int choice,n,data;
+	while(1)
+	{
+		cout<<"1.Insert\n2.Inorder Traversal of Threaded tree.\n3.Exit"<<endl;
+		cout<<"Enter your choice- ";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1:
+				cout<<"Number of elements to insert- ";
+				cin>>n;
+				cout<<"Enter "<<n<<" integers :"<<endl;
+				for(int i=0;i<n;i++)
+				{
+					cin>>data;
+					root=a.insert(root,data);
+				}
+				break;
 
-            case 3:
-            exit(0);
+			case 2:
+				a.inorder(root);
+				cout<<endl;
+				break;
 
-            default: cout<<"Invalid choice. Try again."<<endl;
-        }
-    }
-return 0;
+			case 3:
+				exit(0);
+
+			default: cout<<"Invalid choice. Try again."<<endl;
+		}
+	}
+	return 0;
 }
