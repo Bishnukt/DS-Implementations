@@ -88,7 +88,7 @@ int main()
 	int choice,n,data;
 	while(1)
 	{
-		cout<<"1.Insert\n2.Inorder Traversal of Threaded tree.\n3.Exit"<<endl;
+		cout<<"1.Insert\n2.Inorder Traversal of Threaded tree.\n3.Delete\n4.Exit"<<endl;
 		cout<<"Enter your choice- ";
 		cin>>choice;
 		switch(choice)
@@ -110,6 +110,10 @@ int main()
 				break;
 
 			case 3:
+				cout<<"\nFeature not available now"<<endl;
+				break;
+
+			case 4:
 				exit(0);
 
 			default: cout<<"Invalid choice. Try again."<<endl;
