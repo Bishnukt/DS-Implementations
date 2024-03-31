@@ -29,8 +29,6 @@ class HashTable
             return hashKey;
         }
 
-        cout<<"Collision occurred."<<endl;
-
         do{
             linProb = (hashKey + i) % size;
             if(table[linProb] == val || table[linProb] == -1)
@@ -56,6 +54,7 @@ public:
         }
         int hashKey = generateHashKey(val);
         if(hashKey != -1){
+            cout<<"Inside hashkey = "<<hashKey<<endl;
             table[hashKey]=val;
             return true;
         }
@@ -73,13 +72,13 @@ public:
         return true;
     }
 
-    int searchVal(int val)
+    bool searchVal(int val)
     {
         int hashKey = generateHashKey(val);
         if (hashKey != -1)
             return table[hashKey] == val;
         else
-            return -1;
+            return false;
     }
 
     void printTable()
