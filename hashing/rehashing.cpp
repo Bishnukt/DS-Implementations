@@ -6,7 +6,7 @@ using namespace std;
 class HashTable
 {
     int size;
-    vector<int> table, prob; //1d array
+    vector<int> table, prob; // 1d array
 
     // int countDigits(int val)
     // {
@@ -21,24 +21,25 @@ class HashTable
 
     int generateHashKey(int val)
     {
-        int hashKey = -1, i =1, linProb;
+        int hashKey = -1, i = 1;
         val = abs(val);
         hashKey = val % size;
-
-        if(table[hashKey] == -1 || table[hashKey] == val){
-            return hashKey;
-        }
-
-        cout<<"Collision occurred."<<endl;
-
-        do{
-            linProb = (hashKey + i) % size;
-            if(table[linProb] == val || table[linProb] == -1)
-                return linProb;
+        while (table[hashKey] != -1 && i <= size)
+        {
+            if (table[hashKey] == val)
+            {
+                return hashKey;
+            }
+            hashKey = (hashKey + i) % size;
             i++;
-        }while(linProb!=hashKey);
-
-        return -1;
+        }
+        // cout<<hashKey<<"="<<table[hashKey]<<endl;
+        if (table[hashKey] != -1)
+        {
+            return -1;
+        }
+        else
+            return hashKey;
     }
 
 public:
@@ -55,8 +56,9 @@ public:
             return true;
         }
         int hashKey = generateHashKey(val);
-        if(hashKey != -1){
-            table[hashKey]=val;
+        if (hashKey != -1)
+        {
+            table[hashKey] = val;
             return true;
         }
         return false;
@@ -84,13 +86,13 @@ public:
 
     void printTable()
     {
-        for (int i=0;i<size;i++)
+        for (int i = 0; i < size; i++)
         {
             // if(table[i] == -1){
             //     cout<<"NULL"<<endl;
             // }
             // else{
-                cout<<table[i]<<endl;
+            cout << table[i] << endl;
             // }
         }
     }
@@ -108,7 +110,8 @@ int main(int argc, char *argv[])
         cout << "2.Delete" << endl;
         cout << "3.Search" << endl;
         cout << "4.Print Table" << endl;
-        cout << "5.Exit\n"<< endl;
+        cout << "5.Exit\n"
+             << endl;
         cout << "Enter your choice- ";
         cin >> ch;
 

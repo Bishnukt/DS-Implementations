@@ -21,24 +21,26 @@ class HashTable
 
     int generateHashKey(int val)
     {
-        int hashKey = -1, i = 1;
+        int hashKey = -1, i = 1, quadProb;
         val = abs(val);
         hashKey = val % size;
-        while (table[hashKey] != -1 && i <= size)
-        {
-            if (table[hashKey] == val)
+
+        if(table[hashKey] == -1 || table[hashKey] == val){
+            return hashKey;
+        }
+
+        cout<<"Collision occured"<<endl;
+
+        do{
+            quadProb = (hashKey + c1 * i + (c2 * (i * i))) % size;
+            if (table[quadProb] == -1 || table[quadProb] == val)
             {
                 return hashKey;
             }
-            hashKey = (hashKey + c1 * i + (c2 * (i * i))) % size;
             i++;
-        }
-        if (table[hashKey] != -1)
-        {
-            return -1;
-        }
-        else
-            return hashKey;
+        }while (i < size);
+
+        return -1;
     }
 
 public:

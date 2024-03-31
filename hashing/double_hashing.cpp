@@ -26,25 +26,16 @@ class HashTable
         hashKey1 = val % size;
         hashKey = hashKey1;
         hashKey2 = val % m2;
-        cout<<"hashkey1 = "<<hashKey1<<endl;
-        cout << "hashkey2 = " << hashKey2 << endl;
-        cout << "hashkey = " << hashKey << endl;
 
-        while (table[hashKey] != -1 && i < size)
+        do
         {
-            if(table[hashKey] == val){
+            if(table[hashKey] == val || table[hashKey]==-1){
                 return hashKey;
             }
             hashKey = (hashKey1 + i * hashKey2) % size;
             i++;
-        }
-        cout << hashKey << "=" << table[hashKey] << endl;
-        if (table[hashKey] != -1)
-        {
-            return -1;
-        }
-        else
-            return hashKey;
+        }while(i<size);
+        return -1;
     }
 
 public:
